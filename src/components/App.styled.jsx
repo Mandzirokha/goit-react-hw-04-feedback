@@ -28,11 +28,3 @@ export const StatisticsBox = styled.div`
 export const SubTitle = styled.h2`
   font-size: 28px;
 `;
-
-export const StatsList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-export const StatsItem = styled.li``;
