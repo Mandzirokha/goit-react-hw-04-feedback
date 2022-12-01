@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  FeedbackBox,
-  FeedbackList,
-  StatisticsBox,
-  // StatsItem,
-  // StatsList,
-  SubTitle,
-  Title,
-} from './App.styled';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
+import { Section } from './Section/Section';
+import { Notification } from './Notification/Notification';
+
+const options = ['good', 'neutral', 'bad'];
 
 class App extends Component {
   state = {
@@ -33,9 +28,12 @@ class App extends Component {
   };
 
   countPositiveFeedbackPercentage = () => {
+    let positivePercentage = 0;
     const { good } = this.state;
     const total = this.countTotalFeedback();
-    const positivePercentage = Math.floor((good / total) * 100);
+    if (total > 0) {
+      positivePercentage = Math.floor((good / total) * 100);
+    }
     return positivePercentage;
   };
 
@@ -45,36 +43,26 @@ class App extends Component {
     const positivePercentage = this.countPositiveFeedbackPercentage();
     return (
       <>
-        <FeedbackBox>
-          <Title>Please leave feedback</Title>
-          <FeedbackList>
-            <li>
-              <Button type="button" name="good" onClick={this.handleClick}>
-                Good
-              </Button>
-            </li>
-            <li>
-              <Button type="button" name="neutral" onClick={this.handleClick}>
-                Neutral
-              </Button>
-            </li>
-            <li>
-              <Button type="button" name="bad" onClick={this.handleClick}>
-                Bad
-              </Button>
-            </li>
-          </FeedbackList>
-        </FeedbackBox>
-        <StatisticsBox>
-          <SubTitle>Statistics</SubTitle>
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            positivePercentage={positivePercentage}
-          ></Statistics>
-        </StatisticsBox>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={options}
+            onLeaveFeedback={this.handleClick}
+          />
+        </Section>
+
+        <Section title="Statistics">
+          {total ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={positivePercentage}
+            ></Statistics>
+          ) : (
+            <Notification message="There is no feedback"></Notification>
+          )}
+        </Section>
       </>
     );
   }
