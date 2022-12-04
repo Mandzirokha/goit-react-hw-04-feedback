@@ -6,4 +6,7 @@ export const StatsList = styled.ul`
   padding: 0;
 `;
 
-export const StatsItem = styled.li``;
+export const StatsItem = styled.li`
+  font-weight: bold;
+  padding: 3px;
+`;
