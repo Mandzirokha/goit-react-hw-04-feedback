@@ -5,8 +5,6 @@ import { Section } from './Section/Section';
 import { Notification } from './Notification/Notification';
 import { Container } from './App.styled';
 
-const options = ['good', 'neutral', 'bad'];
-
 class App extends Component {
   state = {
     good: 0,
@@ -46,7 +44,7 @@ class App extends Component {
       <Container>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={options}
+            options={Object.keys(this.state)}
             onLeaveFeedback={this.handleClick}
           />
         </Section>
